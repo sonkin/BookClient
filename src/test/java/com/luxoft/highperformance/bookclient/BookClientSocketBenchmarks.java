@@ -11,13 +11,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- Benchmark                           Mode  Cnt       Score       Error  Units
- BookClientBenchmarks.baseline       avgt    3     168,025 ±    65,448  us/op
- BookClientBenchmarks.get10Books     avgt    3     400,136 ±  2505,030  us/op
- BookClientBenchmarks.get100Books    avgt    3     677,290 ±   171,614  us/op
- BookClientBenchmarks.get1000Books   avgt    3    3946,730 ±  1065,618  us/op
- BookClientBenchmarks.get10000Books  avgt    3   39754,116 ± 22581,088  us/op
- BookClientBenchmarks.getAllBooks    avgt    3  504187,496 ± 52937,045  us/op
+ Benchmark                                 Mode  Cnt      Score        Error  Units
+ BookClientSocketBenchmarks.get1000Books   avgt    3  12946,934 ± 235540,410  us/op
+ BookClientSocketBenchmarks.get10000Books  avgt    3  28026,213 ±   6185,732  us/op
+ BookClientSocketBenchmarks.get100000Books  avgt   3  402192,150 ± 146359,711  us/op
 
  */
 @SpringBootTest
@@ -34,7 +31,7 @@ public class BookClientSocketBenchmarks extends AbstractBenchmark {
         BookClientSocketBenchmarks.socketClient = socketClient;
     }
 
-    @Benchmark
+    //@Benchmark
     public void get10Books(Blackhole bh) {
         bh.consume(socketClient.getBooks(10));
     }
@@ -52,6 +49,11 @@ public class BookClientSocketBenchmarks extends AbstractBenchmark {
     //@Benchmark
     public void get10000Books(Blackhole bh) {
         bh.consume(socketClient.getBooks(10000));
+    }
+
+    @Benchmark
+    public void get100000Books(Blackhole bh) {
+        bh.consume(socketClient.getBooks(100000));
     }
 
 }
