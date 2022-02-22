@@ -22,7 +22,7 @@ abstract public class AbstractBenchmark {
                 // will not see references stored within its class
                 .forks(0)
                 // do not use multiple threads
-                .threads(4)
+                .threads(1)
 //                .shouldFailOnError(true)
 //                .resultFormat(ResultFormatType.JSON)
 //                .result("/dev/null") // set this to a valid filename if you want reports

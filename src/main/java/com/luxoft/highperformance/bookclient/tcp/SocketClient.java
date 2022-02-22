@@ -1,26 +1,22 @@
-package com.luxoft.highperformance.bookclient;
+package com.luxoft.highperformance.bookclient.tcp;
 
 import com.luxoft.highperformance.bookclient.model.Book;
-import one.nio.serial.DeserializeStream;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
-import java.util.List;
 
 @Service
 public class SocketClient {
 
     public Book[] getBooks(int amount) {
+
         try {
             Socket socket = new Socket();
-            socket.connect(
-                new InetSocketAddress("127.0.0.1",9100),
-                50);
+            socket.connect(new InetSocketAddress("127.0.0.1",9100));
 
             DataInputStream in = new DataInputStream(
                     new BufferedInputStream(

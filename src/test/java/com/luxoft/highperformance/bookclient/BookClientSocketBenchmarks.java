@@ -1,5 +1,7 @@
 package com.luxoft.highperformance.bookclient;
 
+import com.luxoft.highperformance.bookclient.tcp.SocketClient;
+import com.luxoft.highperformance.bookclient.tcp.async.AsyncClient;
 import org.junit.runner.RunWith;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -21,39 +23,47 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Warmup(iterations = 2)
+@Measurement(iterations = 2)
+@Fork(1)
+@Threads(4)
 @RunWith(SpringRunner.class)
 public class BookClientSocketBenchmarks extends AbstractBenchmark {
 
     public static SocketClient socketClient;
+    public static AsyncClient asyncClient = new AsyncClient();
 
     @Autowired
     public void setSocketClient(SocketClient socketClient) {
         BookClientSocketBenchmarks.socketClient = socketClient;
     }
 
-    //@Benchmark
+    @Benchmark
     public void get10Books(Blackhole bh) {
-        bh.consume(socketClient.getBooks(10));
+        bh.consume(asyncClient.getBooks(10));
+//        bh.consume(socketClient.getBooks(10));
     }
 
-    //Benchmark
+    @Benchmark
     public void get100Books(Blackhole bh) {
-        bh.consume(socketClient.getBooks(100));
+        bh.consume(asyncClient.getBooks(100));
     }
 
-    //@Benchmark
-    public void get1000Books(Blackhole bh) {
-        bh.consume(socketClient.getBooks(1000));
+    @Benchmark
+    public void get1000Books(Blackhole bh) throws InterruptedException {
+        bh.consume(asyncClient.getBooks(1000));
+        //Thread.sleep(20);
     }
 
-    //@Benchmark
+    @Benchmark
     public void get10000Books(Blackhole bh) {
-        bh.consume(socketClient.getBooks(10000));
+        //bh.consume(socketClient.getBooks(10000));
+        bh.consume(asyncClient.getBooks(10000));
     }
 
     @Benchmark
     public void get100000Books(Blackhole bh) {
-        bh.consume(socketClient.getBooks(100000));
+        bh.consume(asyncClient.getBooks(100000));
     }
 
 }

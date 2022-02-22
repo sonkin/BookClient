@@ -1,5 +1,6 @@
 package com.luxoft.highperformance.bookclient;
 
+import com.luxoft.highperformance.bookclient.rest.BookClient;
 import org.junit.runner.RunWith;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -53,12 +54,12 @@ public class BookClientRestBenchmarks extends AbstractBenchmark {
         bh.consume(bookClient.getAllBooks());
     }
 
-    @Benchmark
+    //@Benchmark
     public void get10Books(Blackhole bh) {
         bh.consume(bookClient.getBooks(10));
     }
 
-    @Benchmark
+    //@Benchmark
     public void get100Books(Blackhole bh) {
         bh.consume(bookClient.getBooks(100));
     }
@@ -68,7 +69,7 @@ public class BookClientRestBenchmarks extends AbstractBenchmark {
         bh.consume(bookClient.getBooks(1000));
     }
 
-    //@Benchmark
+    @Benchmark
     public void get10000Books(Blackhole bh) {
         bh.consume(bookClient.getBooks(10_000));
     }

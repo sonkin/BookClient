@@ -3,6 +3,8 @@ package com.luxoft.highperformance.bookclient.model;
 
 import lombok.*;
 
+import java.nio.BufferOverflowException;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
